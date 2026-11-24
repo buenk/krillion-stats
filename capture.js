@@ -101,13 +101,17 @@
   let today;
   try { today = await getJSON('/api/today'); } catch (e) { fail('Could not reach /api/today: ' + e.message); return; }
 
-  const finished = game && game.phase === 'done' && Array.isArray(game.results) && game.results.length === 7;
-  const gameDate = game?.date || (finished ? today.date : null);
-  const isToday = finished && gameDate === today.date;
-
   // ---------- 2. backfill: every finished day the game remembers ----------
   // History only has your own score + answers; field stats for past days are no longer served.
   const history = stats?.history && typeof stats.history === 'object' ? stats.history : {};
+
+  // When a dive ends the game writes it to history[date] and clears krillion:game:v1,
+  // so history is the source of truth. The saved game only matters in the brief
+  // moment before that write (phase "done" but not yet in history).
+  const todayDone = history[today.date]?.results?.length === 7
+    ? history[today.date]
+    : (game && game.phase === 'done' && game.date === today.date && game.results?.length === 7 ? game : null);
+  const isToday = !!todayDone;
   const backfill = Object.entries(history).map(([date, h]) => ({
     date,
     dayNumber: h.dayNumber ?? null,
@@ -127,8 +131,8 @@
   const notes = [];
   if (isToday) {
     setBody('Fetching today\'s field stats…');
-    const results = game.results;
-    const score = typeof game.score === 'number' ? game.score : results.reduce((a, r) => a + (r.score || 0), 0);
+    const results = todayDone.results;
+    const score = typeof todayDone.score === 'number' ? todayDone.score : results.reduce((a, r) => a + (r.score || 0), 0);
 
     // 3a. distribution + percentile — same call the results screen makes, never recorded.
     let betterThan = null, dist = null;
@@ -214,8 +218,6 @@
       maxScore: MAX_DAY_SCORE,
       prompts,
     };
-  } else if (finished) {
-    notes.push(`Your saved game is from ${gameDate}, not today (${today.date}); only your score history was captured.`);
   } else {
     notes.push('Today\'s dive isn\'t finished yet, so only your past score history was captured.');
   }
