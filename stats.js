@@ -1,4 +1,4 @@
-// Shared maths for the field's score distribution.
+// Shared maths for the field's score distribution and per-question field stats.
 // The game sends `dist` as bucket counts spread evenly over 0..700
 // (that's how its own results chart draws them), so bucket i covers
 // [i*700/n, (i+1)*700/n). Values in between are linearly interpolated.
@@ -26,12 +26,71 @@ export function distStats(dist, max = MAX_DAY_SCORE) {
   return { mean, p50: quantile(0.5), p75: quantile(0.75), p90: quantile(0.9), p95: quantile(0.95), total };
 }
 
+// Re-bin the distribution into fixed-width bins (default 25 points → 28 bins) for drawing.
+export function rebin(dist, binWidth = 25, max = MAX_DAY_SCORE) {
+  // Split each source bucket across the target bins it overlaps, so uneven
+  // bucket widths don't produce a saw-tooth.
+  const bins = new Array(Math.ceil(max / binWidth)).fill(0);
+  const w = max / dist.length;
+  dist.forEach((c, i) => {
+    const lo = i * w, hi = lo + w;
+    for (let b = Math.floor(lo / binWidth); b * binWidth < hi && b < bins.length; b++) {
+      const overlap = Math.min(hi, (b + 1) * binWidth) - Math.max(lo, b * binWidth);
+      if (overlap > 0) bins[b] += ((c || 0) * overlap) / w;
+    }
+  });
+  return bins;
+}
+
+// Colours are the game's own tier tokens (krillion.io CSS custom properties).
 export const TIERS = [
-  { id: 'krillion', label: 'One in a Krillion', score: 100 },
-  { id: 'deepcut', label: 'Deep Cut', score: 85 },
-  { id: 'rare', label: 'Rare', score: 60 },
-  { id: 'schooler', label: 'Schooler', score: 30 },
-  { id: 'tooclever', label: 'Too Clever', score: 15 },
-  { id: 'plankton', label: 'Plankton', score: 10 },
-  { id: 'miss', label: 'Miss', score: 0 },
+  { id: 'krillion', label: 'One in a Krillion', score: 100, color: '#ffd166' },
+  { id: 'deepcut', label: 'Deep Cut', score: 85, color: '#bfa7ff' },
+  { id: 'rare', label: 'Rare', score: 60, color: '#ff7bac' },
+  { id: 'schooler', label: 'Schooler', score: 30, color: '#7deaff' },
+  { id: 'tooclever', label: 'Too Clever', score: 15, color: '#ff9f43' },
+  { id: 'plankton', label: 'Plankton', score: 10, color: '#d7e1f2' },
+  { id: 'miss', label: 'Miss', score: 0, color: '#3d4f6e' },
 ];
+export const TIER = Object.fromEntries(TIERS.map((t) => [t.id, t]));
+export const tierOf = (id) => TIER[id] || TIER.miss;
+
+// The game's own score bands and verdicts.
+export const BANDS = [
+  { min: 450, name: 'One in a krillion', verdict: 'One in a krillion. Trench dweller. Absurd.' },
+  { min: 351, name: 'Deep cut', verdict: 'Deep cut. Seriously deep dive.' },
+  { min: 251, name: 'Rare', verdict: 'Rare. Below the thermocline. Nice.' },
+  { min: 151, name: 'Schooler', verdict: 'Schooler. Swimming with the school.' },
+  { min: 0, name: 'Plankton', verdict: 'Plankton. Plenty of ocean left down there.' },
+];
+export const bandOf = (score) => BANDS.find((b) => score >= b.min);
+
+// Per-question field stats from how players split across tiers.
+// Only players who gave an accepted answer are in the popularity data, so misses are excluded.
+// topAvg(0.1) = average points of the best-scoring 10% of those answers.
+export function questionField(p) {
+  const tp = p?.tierPlayers;
+  if (!tp) return typeof p?.othersAvg === 'number' ? { avg: p.othersAvg, top10: null, top5: null } : null;
+  const rows = Object.entries(tp)
+    .map(([id, n]) => ({ pts: tierOf(id).score, n }))
+    .filter((r) => r.n > 0)
+    .sort((a, b) => b.pts - a.pts);
+  const total = rows.reduce((a, r) => a + r.n, 0);
+  if (!total) return null;
+  const topAvg = (frac) => {
+    let need = frac * total, sum = 0;
+    for (const r of rows) {
+      const take = Math.min(r.n, need);
+      sum += take * r.pts;
+      need -= take;
+      if (need <= 0) break;
+    }
+    return sum / (frac * total);
+  };
+  const avg = typeof p.othersAvg === 'number' ? p.othersAvg : rows.reduce((a, r) => a + r.pts * r.n, 0) / total;
+  return { avg, top10: topAvg(0.1), top5: topAvg(0.05) };
+}
+
+export function formatPercentile(x) {
+  return x >= 99.5 ? x.toFixed(2) : String(Math.round(x * 10) / 10);
+}

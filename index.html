@@ -3,121 +3,96 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Krillion Stats</title>
-  <meta name="description" content="Long-term stats for the Krillion daily dive: your scores against the rest of the field.">
+  <title>Ezra's Krillion Stats</title>
+  <meta name="description" content="Ezra's Krillion dives, day after day, against everyone else who played.">
+  <meta name="theme-color" content="#050a14">
+  <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+  <!-- Fontshare serves only the first family per request, so one link per family. -->
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=array@400&display=swap">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <script type="module" src="app.js"></script>
 </head>
 <body>
-  <header class="wrap">
-    <h1>🦐 Krillion Stats</h1>
-    <p class="sub">How deep you dive, day after day, and how that compares to everyone else.</p>
+  <a class="skip" href="#today">Skip to today</a>
+
+  <header class="top">
+    <div class="top-in">
+      <a class="brand" href="#today">
+        <svg class="mark" viewBox="0 0 22 22" aria-hidden="true"><rect width="10" height="10" fill="#ffd166"/><rect x="12" width="10" height="10" fill="#bfa7ff"/><rect y="12" width="10" height="10" fill="#ff7bac"/><rect x="12" y="12" width="10" height="10" fill="#7deaff"/></svg>
+        Ezra's Krillion Stats
+      </a>
+      <nav class="tabs" aria-label="Sections">
+        <a href="#today" aria-current="true">Today</a>
+        <a href="#progress">Progress</a>
+        <a href="#questions">Questions</a>
+        <a href="#data">Data</a>
+      </nav>
+      <span class="when" id="when"></span>
+    </div>
   </header>
 
-  <main class="wrap">
-    <div id="toast" class="toast" hidden></div>
-
-    <section id="empty" class="card" hidden>
-      <h2>No dives yet</h2>
-      <p>Install the bookmarklet below, finish today's <a href="https://krillion.io" target="_blank" rel="noopener">Krillion</a>, click the bookmarklet on the results screen, then click <b>Save to stats site</b>.</p>
+  <main>
+    <section id="today" class="sec sec-today" aria-labelledby="h-today">
+      <h2 id="h-today" class="vh">Today</h2>
+      <div id="today-body"></div>
     </section>
 
-    <section id="dashboard" hidden>
-      <div class="filters">
-        <label>Range
+    <section id="progress" class="sec" aria-labelledby="h-progress">
+      <div class="sh">
+        <h2 id="h-progress">Progress</h2>
+        <label class="range">Range
           <select id="range">
-            <option value="30">Last 30 days</option>
-            <option value="90">Last 90 days</option>
-            <option value="all" selected>All time</option>
+            <option value="14">Last 14 dives</option>
+            <option value="30" selected>Last 30 dives</option>
+            <option value="90">Last 90 dives</option>
+            <option value="all">All dives</option>
           </select>
         </label>
       </div>
-
-      <div id="kpis" class="kpis"></div>
-
-      <div class="grid">
-        <article class="card span-2">
-          <h2>Your score every day</h2>
-          <p class="note">Your daily score out of 700, next to the field average on days you captured it.</p>
-          <div class="chart tall"><canvas id="c-daily"></canvas></div>
-        </article>
-
-        <article class="card span-2">
-          <h2>You vs the field</h2>
-          <p class="note">Field lines only exist for days you captured with the bookmarklet on the day itself.</p>
-          <div class="chart tall"><canvas id="c-vs"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Your average over time</h2>
-          <p class="note">7-day rolling average and running all-time average.</p>
-          <div class="chart"><canvas id="c-avg"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Gap to the field</h2>
-          <p class="note">Your average minus each benchmark, over captured days. Above zero means you beat it.</p>
-          <div class="chart"><canvas id="c-gap"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Average score per category</h2>
-          <p class="note">Points per question (max 100). "Field" is the average among players who gave an accepted answer.</p>
-          <div class="chart tall"><canvas id="c-cat"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Average score per weekday</h2>
-          <p class="note">Your mean daily score by day of the week.</p>
-          <div class="chart tall"><canvas id="c-dow"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Percentile over time</h2>
-          <p class="note">Share of the day's players you beat.</p>
-          <div class="chart"><canvas id="c-pct"></canvas></div>
-        </article>
-
-        <article class="card">
-          <h2>Your tiers</h2>
-          <p class="note">How often each answer landed in each rarity tier.</p>
-          <div class="chart"><canvas id="c-tiers"></canvas></div>
-        </article>
-
-        <article class="card span-2">
-          <h2>Latest field distribution</h2>
-          <p class="note" id="dist-note"></p>
-          <div class="chart"><canvas id="c-dist"></canvas></div>
-        </article>
-      </div>
-
-      <article class="card">
-        <h2>Every dive</h2>
-        <div class="table-wrap"><table id="days"></table></div>
-      </article>
+      <div id="progress-body"></div>
     </section>
 
-    <section class="card" id="setup">
-      <h2>Bookmarklet</h2>
-      <ol>
-        <li>Show the bookmarks toolbar in Firefox (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>).</li>
-        <li>Drag this button onto the toolbar: <a id="bm-loader" class="bookmarklet" href="#">🦐 Krillion Stats</a></li>
-        <li>Finish the daily dive on <a href="https://krillion.io" target="_blank" rel="noopener">krillion.io</a>, click the bookmark, then click <b>Save to stats site</b>.</li>
-      </ol>
-      <p class="note">The button above loads the latest <code>capture.js</code> from this site each time, so fixes reach you without reinstalling. If it ever stops loading, use the self-contained version instead: <a id="bm-standalone" class="bookmarklet alt" href="#">🦐 Krillion Stats (standalone)</a></p>
-      <p class="note">The first run also imports your past scores from the game's local history. The field average and percentile can only be captured on the day itself, because Krillion stops serving past days' stats.</p>
+    <section id="questions" class="sec" aria-labelledby="h-questions">
+      <div class="sh">
+        <h2 id="h-questions">Questions</h2>
+        <p class="sh-meta" id="questions-meta"></p>
+      </div>
+      <div id="questions-body"></div>
+    </section>
 
-      <h3>Your data</h3>
-      <p class="note">Your data lives in this browser's storage. Export it now and then to keep a backup. To show it on other devices, commit it as <code>data.json</code> in the repo; the site merges that file in on load.</p>
-      <div class="actions">
-        <button id="export">Export JSON</button>
-        <label class="button">Import JSON<input id="import" type="file" accept="application/json" hidden></label>
-        <button id="clear" class="danger">Clear local data</button>
+    <section id="data" class="sec" aria-labelledby="h-data">
+      <div class="sh"><h2 id="h-data">Data</h2></div>
+      <div class="panel data-grid">
+        <div>
+          <h3 class="h3">How to capture a dive</h3>
+          <ol class="steps">
+            <li><span class="sn">1</span><div><p class="st">Finish the daily dive</p><p class="sd">Play on <a href="https://krillion.io" target="_blank" rel="noopener">krillion.io</a> until the results screen.</p></div></li>
+            <li><span class="sn">2</span><div><p class="st">Click the bookmarklet</p><p class="sd">It reads your result and today's field stats. Field stats only exist on the day itself, so capture before the 05:00 UTC reset.</p></div></li>
+            <li><span class="sn">3</span><div><p class="st">Save to stats site</p><p class="sd">The panel's button opens this page with the new dive added.</p></div></li>
+          </ol>
+          <div class="bm">
+            <a id="bm-loader" class="btn btn-primary" href="#">Capture dive</a>
+            <p class="sd">Drag onto your bookmarks bar, or save it with a keyword (e.g. <kbd>ks</kbd>) and type that on the results screen. <a id="bm-standalone" href="#">Standalone version</a> if the normal one won't load.</p>
+          </div>
+        </div>
+        <div class="backup">
+          <h3 class="h3">Backup</h3>
+          <p class="sd">Your dives live in this browser's storage. Export a copy now and then; commit it as <code>data.json</code> to see it on other devices (the repo is public).</p>
+          <div class="btns">
+            <button class="btn btn-primary" id="export" type="button">Export JSON</button>
+            <label class="btn btn-ghost">Import JSON<input id="import" type="file" accept="application/json" hidden></label>
+            <button class="btn btn-ghost btn-danger" id="clear" type="button">Clear local data</button>
+          </div>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="wrap note">Not affiliated with Krillion. Data comes from your own browser and the public endpoints the game's results screen uses.</footer>
+  <footer class="foot-bar">
+    <div class="foot-in"><span>Not affiliated with Krillion.</span><span>Data comes from your browser and the public endpoints the game's results screen uses.</span></div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" hidden></div>
 </body>
 </html>
