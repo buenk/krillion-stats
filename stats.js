@@ -42,15 +42,16 @@ export function rebin(dist, binWidth = 25, max = MAX_DAY_SCORE) {
   return bins;
 }
 
-// Colours are the game's own tier tokens (krillion.io CSS custom properties).
+// Colours point at CSS custom properties (the game's own tier tokens by default),
+// so a palette can recolour tiers without touching the scripts.
 export const TIERS = [
-  { id: 'krillion', label: 'One in a Krillion', score: 100, color: '#ffd166' },
-  { id: 'deepcut', label: 'Deep Cut', score: 85, color: '#bfa7ff' },
-  { id: 'rare', label: 'Rare', score: 60, color: '#ff7bac' },
-  { id: 'schooler', label: 'Schooler', score: 30, color: '#7deaff' },
-  { id: 'tooclever', label: 'Too Clever', score: 15, color: '#ff9f43' },
-  { id: 'plankton', label: 'Plankton', score: 10, color: '#d7e1f2' },
-  { id: 'miss', label: 'Miss', score: 0, color: '#3d4f6e' },
+  { id: 'krillion', label: 'One in a Krillion', score: 100, color: 'var(--tier-krillion)' },
+  { id: 'deepcut', label: 'Deep Cut', score: 85, color: 'var(--tier-deepcut)' },
+  { id: 'rare', label: 'Rare', score: 60, color: 'var(--tier-rare)' },
+  { id: 'schooler', label: 'Schooler', score: 30, color: 'var(--tier-schooler)' },
+  { id: 'tooclever', label: 'Too Clever', score: 15, color: 'var(--tier-tooclever)' },
+  { id: 'plankton', label: 'Plankton', score: 10, color: 'var(--tier-plankton)' },
+  { id: 'miss', label: 'Miss', score: 0, color: 'var(--tier-miss)' },
 ];
 export const TIER = Object.fromEntries(TIERS.map((t) => [t.id, t]));
 export const tierOf = (id) => TIER[id] || TIER.miss;

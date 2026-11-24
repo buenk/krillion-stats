@@ -23,10 +23,15 @@ const gameDate = () => new Date(Date.now() - 5 * 3600e3).toISOString().slice(0, 
 // ---------------- boot ----------------
 async function init() {
   let log = loadLocal();
-  try {
-    const r = await fetch('data.json', { cache: 'no-store' });
-    if (r.ok) log = mergeLogs(log, await r.json()).log;
-  } catch {}
+  // data.json in the repo shows the same dives on any device; dev-data.json (gitignored)
+  // seeds a local dev server, whose storage starts empty.
+  const local = /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+  for (const file of local ? ['data.json', 'dev-data.json'] : ['data.json']) {
+    try {
+      const r = await fetch(file, { cache: 'no-store' });
+      if (r.ok) log = mergeLogs(log, await r.json()).log;
+    } catch {}
+  }
 
   const m = location.hash.match(/import=([^&]+)/);
   if (m) {
@@ -514,3 +519,8 @@ function toast(msg) {
 }
 
 init();
+
+// Palette tester: on a local dev server, or anywhere with ?palette in the URL.
+if (/^(localhost|127\.0\.0\.1)$/.test(location.hostname) || new URLSearchParams(location.search).has('palette')) {
+  import('./palette.js');
+}
