@@ -45,11 +45,10 @@ a { color: inherit; text-underline-offset: 3px; }
 code, kbd { font: 600 13px ui-monospace, monospace; color: var(--foam); }
 kbd { border: 1px solid var(--line-2); padding: 0 4px; }
 .px { font-family: var(--px); font-weight: 400; letter-spacing: 0; }
-/* Every standalone number on the page is set in Array. The light dotted weight
-   is kept for the giant hero numerals; everything smaller uses 600, which stays
-   solid down to 13px. Text that merely contains a number stays in Satoshi. */
-.fstats dd, .sumrow dd, .sq-xl span, .wsc, .tbar b, .a-pts b, .a-fld, .delta, .a-same b, .a-n, .sn,
-.cv, .cdet b, .gap-v, .wbar b, .vtag b, .brk b, .axis span, .gl i, .tp b, .lp, .rank strong, .xv {
+/* Array is for headline numbers only: the dotted 400 weight on the giant hero
+   numerals, 600 on the stat figures and tier squares. Numbers in lists, tables,
+   legends and chart labels stay in Satoshi. */
+.fstats dd, .sumrow dd, .sq-xl span {
   font-family: var(--px); font-weight: 600; letter-spacing: 0;
 }
 :focus-visible { outline: 2px solid var(--cyan); outline-offset: 3px; }
@@ -132,7 +131,7 @@ select:hover { border-color: var(--line-hover); }
 .vtag { position: absolute; bottom: 100%; left: 0; transform: translateX(-50%); white-space: nowrap; font-size: 13px; color: var(--drift); padding-bottom: 4px; }
 .vtag b { color: var(--foam); }
 .vline.me .vtag { color: var(--foam); }
-.axis { position: relative; height: 22px; font-size: 13px; color: var(--drift); }
+.axis { position: relative; height: 22px; font-size: 12px; color: var(--drift); }
 .axis span { position: absolute; top: 5px; transform: translateX(-50%); }
 .axis span:first-child { transform: none; }
 .axis span:last-child { transform: translateX(-100%); }
@@ -150,13 +149,13 @@ select:hover { border-color: var(--line-hover); }
 .arow { padding: 14px 0; border-bottom: 1px solid var(--line); }
 .arow:last-child { border-bottom: 0; }
 .a-q { display: flex; gap: 14px; align-items: flex-start; min-width: 0; }
-.a-n { flex: none; width: 24px; height: 24px; border: 1px solid var(--line-2); display: grid; place-items: center; font-size: 13px; color: var(--drift); font-weight: 700; margin-top: 1px; }
+.a-n { flex: none; width: 24px; height: 24px; border: 1px solid var(--line-2); display: grid; place-items: center; font-size: 12px; color: var(--drift); font-weight: 700; margin-top: 1px; }
 .q { font-weight: 700; line-height: 1.35; }
 .qcat { font-size: 13px; color: var(--drift); margin-top: 2px; }
 .a-ans { font-weight: 700; overflow-wrap: anywhere; }
 .pill { display: inline-block; background: var(--c); color: var(--on-tier); font-weight: 700; font-size: 13px; padding: 2px 8px; white-space: nowrap; }
 .a-pts, .a-fld, .a-same { text-align: right; }
-.a-pts b { font-size: 20px; }
+.a-pts b { font-size: 17px; font-weight: 900; }
 .delta { display: inline-block; min-width: 44px; font-size: 13px; margin-left: 6px; font-weight: 700; }
 .delta.down { color: var(--drift); }
 .a-same b { display: block; font-weight: 700; }
@@ -173,7 +172,7 @@ select:hover { border-color: var(--line-hover); }
 .chart { padding-left: 38px; }
 .plot { position: relative; height: 256px; margin-top: 6px; }
 .gl { position: absolute; left: 0; right: 0; height: 0; border-top: 1px solid var(--line); }
-.gl i { position: absolute; right: calc(100% + 8px); top: 0; transform: translateY(-50%); font-style: normal; font-size: 13px; color: var(--drift); line-height: 1; }
+.gl i { position: absolute; right: calc(100% + 8px); top: 0; transform: translateY(-50%); font-style: normal; font-size: 12px; color: var(--drift); line-height: 1; }
 .cols { position: absolute; inset: 0; display: grid; }
 .col { display: flex; justify-content: center; align-items: flex-end; }
 .col:hover { background: color-mix(in srgb, var(--foam) 4%, transparent); }
@@ -203,7 +202,7 @@ select:hover { border-color: var(--line-hover); }
 .wdte { font-size: 14px; color: var(--drift); white-space: nowrap; }
 .wsq { display: grid; grid-template-columns: repeat(7, 24px); gap: 5px; }
 .sq-w { width: 24px; height: 24px; background: var(--c); }
-.wsc { text-align: right; font-size: 18px; }
+.wsc { text-align: right; font-weight: 900; font-size: 16px; }
 .wrow.is-latest .wdte { color: var(--foam); font-weight: 700; }
 .wall-more { color: var(--drift); font-size: 13px; margin-top: 14px; }
 
@@ -228,7 +227,7 @@ select:hover { border-color: var(--line-hover); }
 .gap-bar { position: absolute; top: 0; bottom: 0; }
 .gap-bar.up { background: var(--you); }
 .gap-bar.down { background: var(--field); }
-.gap-v { text-align: right; font-size: 17px; }
+.gap-v { text-align: right; font-weight: 900; }
 .gap-sub { color: var(--drift); font-size: 13px; margin-top: 18px; }
 .q-grid { margin-top: 24px; }
 
@@ -253,7 +252,7 @@ select:hover { border-color: var(--line-hover); }
 .mk-t10 { width: 11px; height: 11px; border: 2px solid var(--drift-2); display: inline-block; }
 .mk-t5 { width: 3px; height: 14px; background: var(--drift-2); display: inline-block; }
 .mk-mef { width: 9px; height: 9px; background: var(--foam); transform: rotate(45deg); display: inline-block; margin: 0 2px; }
-.cv { text-align: right; font-size: 17px; }
+.cv { text-align: right; font-weight: 900; font-size: 15px; }
 .cdet { grid-column: 2 / 4; font-size: 13px; color: var(--drift); margin-top: -10px; }
 .cdet b { color: var(--foam); font-weight: 700; }
 
@@ -262,7 +261,7 @@ select:hover { border-color: var(--line-hover); }
 .tn { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 700; white-space: nowrap; }
 .tn .lp { font-weight: 500; }
 .tbar { display: flex; justify-content: flex-end; align-items: center; height: 26px; min-width: 32px; padding: 0 9px; background: var(--c); }
-.tbar b { color: var(--on-tier); font-size: 16px; }
+.tbar b { color: var(--on-tier); font-weight: 900; font-size: 14px; }
 .tbar.zero { width: 32px; background: var(--line); }
 .tbar.zero b { color: var(--foam); }
 .tp { text-align: right; font-size: 13px; color: var(--drift); }
@@ -285,7 +284,7 @@ select:hover { border-color: var(--line-hover); }
 .data-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; padding: 28px; }
 .steps { margin-top: 18px; display: flex; flex-direction: column; gap: 16px; }
 .steps li { display: flex; gap: 14px; align-items: flex-start; }
-.sn { flex: none; width: 28px; height: 28px; border: 1px solid var(--line-2); display: grid; place-items: center; font-size: 15px; }
+.sn { flex: none; width: 28px; height: 28px; border: 1px solid var(--line-2); display: grid; place-items: center; font-weight: 900; font-size: 14px; }
 .st { font-weight: 700; }
 .sd { color: var(--drift); font-size: 14px; }
 .sd a { color: var(--foam); }

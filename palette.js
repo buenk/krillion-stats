@@ -70,6 +70,13 @@ function tokens(p) {
   };
 }
 
+function clear() {
+  const root = document.documentElement;
+  for (const k of Object.keys(tokens(DEFAULT))) root.style.removeProperty(k);
+  root.style.colorScheme = '';
+  document.querySelector('meta[name="theme-color"]')?.setAttribute('content', DEFAULT.ground);
+}
+
 function apply(p) {
   const root = document.documentElement;
   for (const [k, v] of Object.entries(tokens(p))) {
@@ -83,8 +90,9 @@ const load = () => { try { return JSON.parse(localStorage.getItem(KEY)) || null;
 const save = (p) => { try { localStorage.setItem(KEY, JSON.stringify(p)); } catch {} };
 
 // ---------- panel ----------
+// Until a palette is applied, the stylesheet's hand-tuned colours stay untouched.
 let state = load() || structuredClone(DEFAULT);
-apply(state);
+if (load()) apply(state);
 
 const css = `
 .pal-toggle{position:fixed;right:16px;bottom:16px;z-index:40;height:40px;padding:0 16px;font:700 14px var(--sans);background:var(--foam);color:var(--abyss);border:0;cursor:pointer}
@@ -162,7 +170,8 @@ panel.querySelector('#pal-apply').addEventListener('click', () => {
 });
 panel.querySelector('#pal-reset').addEventListener('click', () => {
   state = structuredClone(DEFAULT);
-  apply(state); save(state); drawRoles();
+  try { localStorage.removeItem(KEY); } catch {}
+  clear(); drawRoles();
 });
 panel.querySelector('#pal-copy').addEventListener('click', async (e) => {
   const text = `Palette for real divers (source: ${state.source || 'custom'})\nground ${state.ground}\ntext ${state.text}\n` +
