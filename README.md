@@ -43,3 +43,7 @@ The loader bookmarklet can't fetch an `http://localhost` script from the https k
 
 - **Field average** comes from the distribution buckets, using each bucket's midpoint. The **top 10% / 5%** cut-offs are interpolated within a bucket, so treat them as accurate to a few points.
 - **Per-question field average** counts only players who gave an accepted answer. Misses aren't in the popularity data, so the field figure runs a little high.
+
+## Data safety
+
+There's no shared database: each visitor's dives live only in their own browser, so other people using the bookmarklet can't touch yours. Import links (`#import=…`) are validated field by field (numbers in range, real dates, capped text) before anything is stored or drawn. A link that didn't come from krillion.io (checked via the referrer) asks for confirmation before adding anything.

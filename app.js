@@ -1,6 +1,6 @@
 import { classify } from './categories.js';
 import { distStats, rebin, TIERS, tierOf, bandOf, questionField, formatPercentile, MAX_DAY_SCORE } from './stats.js';
-import { loadLocal, saveLocal, mergeLogs, decodePayload } from './data.js';
+import { loadLocal, saveLocal, mergeLogs, decodePayload, cleanLog } from './data.js';
 
 const SITE = location.origin + location.pathname.replace(/[^/]*$/, '');
 const $ = (id) => document.getElementById(id);
@@ -30,21 +30,28 @@ async function init() {
 
   const m = location.hash.match(/import=([^&]+)/);
   if (m) {
-    try {
-      const res = mergeLogs(log, await decodePayload(m[1]));
-      log = res.log;
-      toast(saveLocal(log)
-        ? `Saved. ${res.added} new dive${res.added === 1 ? '' : 's'}${res.upgraded ? `, ${res.upgraded} upgraded with field stats` : ''}.`
-        : 'Couldn\'t save to this browser\'s storage. Export a backup.');
-    } catch (e) {
-      toast('Couldn\'t read the data from the bookmarklet: ' + e.message);
-    }
     history.replaceState(null, '', location.pathname + location.search);
+    try {
+      const incoming = await decodePayload(m[1]);
+      const res = mergeLogs(log, incoming);
+      // The bookmarklet's Save button opens this page from krillion.io. A link from
+      // anywhere else could carry made-up dives, so ask before taking it.
+      const fromGame = /^https:\/\/(www\.)?krillion\.io\//.test(document.referrer);
+      if (fromGame) {
+        log = res.log;
+        toast(saveLocal(log)
+          ? `Saved. ${res.added} new dive${res.added === 1 ? '' : 's'}${res.upgraded ? `, ${res.upgraded} upgraded with field stats` : ''}.`
+          : 'Couldn\'t save to this browser\'s storage. Export a backup.');
+      } else if (res.added || res.upgraded) {
+        askImport(res);
+      }
+    } catch (e) {
+      toast('Couldn\'t read the data in that link: ' + e.message);
+    }
   }
 
-  currentLog = log;
+  currentLog = log = cleanLog(log);
   allDays = Object.values(log.days)
-    .filter((d) => d && typeof d.score === 'number' && d.date)
     .sort((a, b) => a.date.localeCompare(b.date))
     .map((d) => ({ ...d, field: distStats(d.dist, d.maxScore || MAX_DAY_SCORE) }));
 
@@ -53,6 +60,8 @@ async function init() {
   $('range').addEventListener('change', renderRange);
   render();
   setupScrollSpy();
+  // An import link opened on an already-loaded page only changes the hash.
+  addEventListener('hashchange', () => { if (/import=/.test(location.hash)) location.reload(); });
 }
 
 function render() {
@@ -479,6 +488,20 @@ function setupDataButtons() {
     localStorage.removeItem('krillion-stats:v1');
     location.reload();
   });
+}
+
+function askImport(res) {
+  const bar = $('confirm');
+  const what = [res.added && `${res.added} new dive${res.added === 1 ? '' : 's'}`, res.upgraded && `${res.upgraded} with new field stats`].filter(Boolean).join(' and ');
+  $('confirm-text').textContent = `This link didn't come from krillion.io. Add ${what} from it?`;
+  bar.hidden = false;
+  $('confirm-yes').onclick = () => {
+    bar.hidden = true;
+    if (saveLocal(res.log)) location.reload();
+    else toast('Couldn\'t save to this browser\'s storage.');
+  };
+  $('confirm-no').onclick = () => { bar.hidden = true; toast('Ignored. Nothing was added.'); };
+  $('confirm-yes').focus();
 }
 
 let toastTimer;
