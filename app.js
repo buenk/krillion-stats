@@ -192,12 +192,13 @@ function dailyChart(days, t) {
     data: {
       labels: days.map((d) => fmtDate(d.date)),
       datasets: [
-        bar('Your score', days.map((d) => d.score), t.s[0], { order: 2 }),
-        line('Field average', days.map((d) => r1(d.field?.mean)), t.s[1], { showLine: false, pointRadius: 5, pointStyle: 'line', pointBorderWidth: 3, pointHoverRadius: 7, order: 1, spanGaps: false }),
+        bar('Your score', days.map((d) => d.score), t.s[0]),
+        bar('Field average', days.map((d) => r1(d.field?.mean)), t.s[1]),
       ],
     },
     options: {
-      plugins: { legend: { labels: { sort: (a, b) => a.datasetIndex - b.datasetIndex } } },
+      // Days without field stats get no empty slot: your bar stays centred.
+      skipNull: true,
       scales: { x: xScale(), y: yScale({ max: MAX_DAY_SCORE }) },
     },
   });
