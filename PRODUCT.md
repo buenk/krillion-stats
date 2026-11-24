@@ -21,7 +21,7 @@ The game itself only shows today. This keeps every day, and on days captured wit
 - Daily reset is 05:00 UTC; field stats can only be captured on the day itself.
 
 ## Capabilities and Constraints
-- Static GitHub Pages site (plain HTML/CSS/JS ES modules, Chart.js from cdnjs, no build step), deployed from `main` at https://buenk.github.io/krillion-stats/.
+- Static GitHub Pages site (plain HTML/CSS/JS ES modules, hand-drawn HTML/SVG charts, fonts from Fontshare, no build step), deployed from `main` at https://buenk.github.io/krillion-stats/.
 - `capture.js` is loaded by the bookmarklet at runtime; its URL and the `#import=` hash format must keep working.
 - Data per day: date, day number, score, per-question text/answer/tier/points; on captured days also `betterThan` (percentile), `dist` (score distribution buckets over 0–700), per-question field average, players giving the same answer, tier split.
 - Days imported from game history have no field stats ("history" days).
