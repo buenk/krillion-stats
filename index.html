@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Krillion Stats</title>
+  <meta name="description" content="Long-term stats for the Krillion daily dive: your scores against the rest of the field.">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="wrap">
+    <h1>🦐 Krillion Stats</h1>
+    <p class="sub">How deep you dive, day after day, and how that compares to everyone else.</p>
+  </header>
+
+  <main class="wrap">
+    <div id="toast" class="toast" hidden></div>
+
+    <section id="empty" class="card" hidden>
+      <h2>No dives yet</h2>
+      <p>Install the bookmarklet below, finish today's <a href="https://krillion.io" target="_blank" rel="noopener">Krillion</a>, click the bookmarklet on the results screen, then click <b>Save to stats site</b>.</p>
+    </section>
+
+    <section id="dashboard" hidden>
+      <div class="filters">
+        <label>Range
+          <select id="range">
+            <option value="30">Last 30 days</option>
+            <option value="90">Last 90 days</option>
+            <option value="all" selected>All time</option>
+          </select>
+        </label>
+      </div>
+
+      <div id="kpis" class="kpis"></div>
+
+      <div class="grid">
+        <article class="card span-2">
+          <h2>Your score every day</h2>
+          <p class="note">Bars are your daily score out of 700. The marker shows the field average for that day, where it was captured.</p>
+          <div class="chart tall"><canvas id="c-daily"></canvas></div>
+        </article>
+
+        <article class="card span-2">
+          <h2>You vs the field</h2>
+          <p class="note">Field lines only exist for days you captured with the bookmarklet on the day itself.</p>
+          <div class="chart tall"><canvas id="c-vs"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Your average over time</h2>
+          <p class="note">7-day rolling average and running all-time average.</p>
+          <div class="chart"><canvas id="c-avg"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Gap to the field</h2>
+          <p class="note">Your average minus each benchmark, over captured days. Above zero means you beat it.</p>
+          <div class="chart"><canvas id="c-gap"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Average score per category</h2>
+          <p class="note">Points per question (max 100). "Field" is the average among players who gave an accepted answer.</p>
+          <div class="chart tall"><canvas id="c-cat"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Average score per weekday</h2>
+          <p class="note">Your mean daily score by day of the week.</p>
+          <div class="chart tall"><canvas id="c-dow"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Percentile over time</h2>
+          <p class="note">Share of the day's players you beat.</p>
+          <div class="chart"><canvas id="c-pct"></canvas></div>
+        </article>
+
+        <article class="card">
+          <h2>Your tiers</h2>
+          <p class="note">How often each answer landed in each rarity tier.</p>
+          <div class="chart"><canvas id="c-tiers"></canvas></div>
+        </article>
+
+        <article class="card span-2">
+          <h2>Latest field distribution</h2>
+          <p class="note" id="dist-note"></p>
+          <div class="chart"><canvas id="c-dist"></canvas></div>
+        </article>
+      </div>
+
+      <article class="card">
+        <h2>Every dive</h2>
+        <div class="table-wrap"><table id="days"></table></div>
+      </article>
+    </section>
+
+    <section class="card" id="setup">
+      <h2>Bookmarklet</h2>
+      <ol>
+        <li>Show the bookmarks toolbar in Firefox (<kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>B</kbd>).</li>
+        <li>Drag this button onto the toolbar: <a id="bm-loader" class="bookmarklet" href="#">🦐 Krillion Stats</a></li>
+        <li>Finish the daily dive on <a href="https://krillion.io" target="_blank" rel="noopener">krillion.io</a>, click the bookmark, then click <b>Save to stats site</b>.</li>
+      </ol>
+      <p class="note">The button above loads the latest <code>capture.js</code> from this site each time, so fixes reach you without reinstalling. If it ever stops loading, use the self-contained version instead: <a id="bm-standalone" class="bookmarklet alt" href="#">🦐 Krillion Stats (standalone)</a></p>
+      <p class="note">The first run also imports your past scores from the game's local history. The field average and percentile can only be captured on the day itself, because Krillion stops serving past days' stats.</p>
+
+      <h3>Your data</h3>
+      <p class="note">Your data lives in this browser's storage. Export it now and then to keep a backup. To show it on other devices, commit it as <code>data.json</code> in the repo; the site merges that file in on load.</p>
+      <div class="actions">
+        <button id="export">Export JSON</button>
+        <label class="button">Import JSON<input id="import" type="file" accept="application/json" hidden></label>
+        <button id="clear" class="danger">Clear local data</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap note">Not affiliated with Krillion. Data comes from your own browser and the public endpoints the game's results screen uses.</footer>
+</body>
+</html>
