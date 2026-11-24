@@ -1,4 +1,4 @@
-# Krillion Stats
+# Krillion Stats (real divers)
 
 A bookmarklet that records your [Krillion](https://krillion.io) daily dive results, plus a static GitHub Pages dashboard that charts them over time against the rest of the field.
 

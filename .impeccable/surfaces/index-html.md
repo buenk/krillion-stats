@@ -11,7 +11,7 @@ Scope: the whole single-page dashboard (Today, Progress, Questions, Data). Mode:
 Audience: one player (Ezra), sometimes shared with friends who play Krillion; desktop after a dive and phone.
 Job: 1) how did today go vs the field, 2) am I improving vs other players, 3) where am I strong/weak.
 Constraints: static GitHub Pages, no build step; capture.js URL and #import= hash must keep working; days without field stats are shown as such, never filled in. Not affiliated with Krillion: no Krillion logo or mascots.
-User-pinned (2026-11-24): chosen direction "Tier Grid" from the safer re-roll; title "Ezra's Krillion Stats"; fonts Array (pixel numerals) + Satoshi (everything else) from Fontshare; no corner radii anywhere; nav highlight follows the section in view; category chart compares you with field average, top 10% and top 5%.
+User-pinned (2026-11-24): chosen direction "Tier Grid" from the safer re-roll; brand "real divers" (lowercase, no logo; was "Ezra's Krillion Stats"); fonts Array (every standalone number) + Satoshi (words) from Fontshare; no corner radii anywhere; nav highlight follows the section in view; category chart compares you with field average, top 10% and top 5%.
 
 ## Direction contract
 
@@ -21,7 +21,7 @@ OWN-WORLD: Krillion's night-sea palette (abyss #050a14 ground, shallow #101d33 p
 
 STORY: Arrive from the bookmarklet and see today's score, depth, verdict and percentile, then how everyone scored; scroll to see progress over time against the field, top 10% and top 5%; then category and tier strengths; finally capture/backup controls.
 
-FIRST VIEWPORT: Sticky top bar (mark + "Ezra's Krillion Stats", tabs Today/Progress/Questions/Data with scroll-following underline, dive date right). Left: giant Array score "490/700", depth "−4,900 m deep", band verdict, "Better than 96% of players today", then the row of seven large tier squares with points and the tier legend. Right panel: field average / you vs average / top 10% / top 5% stats over today's score histogram with average and you markers and top-10%/top-5% brackets. Answers table begins below the fold.
+FIRST VIEWPORT: Sticky top bar ("real divers" wordmark, tabs Today/Progress/Questions/Data with scroll-following underline, dive date right). Left: giant Array score "490/700", depth "−4,900 m deep", band verdict, "Better than 96% of players today", then the row of seven large tier squares with points and the tier legend. Right panel: field average / you vs average / top 10% / top 5% stats over today's score histogram with average and you markers and top-10%/top-5% brackets. Answers table begins below the fold.
 
 FORM: grounded direction "Tier Grid" from the safer re-roll lineup (user-chosen, kind grounded); seed:0ea190b4e924367f.
 

@@ -138,7 +138,7 @@ components:
 
 Krillion Stats reads as a page torn from the game's own logbook, not a generic analytics dashboard. The ground is the game's abyss navy, panels sit one step shallower, and hairline rules divide everything. Colour is held back almost entirely: the only saturated hues on the page are the game's seven tier colours, and they appear only where a tier is being reported. Everything else (you, the field, top 10%, top 5%, running average) is told in foam, drift and drift-2, separated by shape and dash pattern rather than hue.
 
-The signature unit is the dive as a row of seven square tiles, the same grid players already share from the game. It appears giant on the Today hero and small on the dive wall, and the brand mark is four of those squares. Headline numbers are set in Array, a pixel face that echoes the game's screen; every other word and number is Satoshi with tabular numerals. Density is moderate: a 1100px column, panels with 24px padding, tables ruled with 1px lines.
+The signature unit is the dive as a row of seven square tiles, the same grid players already share from the game. It appears giant on the Today hero and small on the dive wall. The brand is a plain lowercase wordmark, "real divers", with no logo. Every standalone number is set in Array, a pixel face that echoes the game's screen; words, and text that merely contains a number (dates, "38,641 players"), are Satoshi. Density is moderate: a 1100px column, panels with 24px padding, tables ruled with 1px lines.
 
 Every corner is square. The page is dark only, drawn from krillion.io's own CSS tokens, and honest about gaps: a day without captured field stats shows a dashed stub, never an estimate.
 
@@ -146,7 +146,7 @@ Every corner is square. The page is dark only, drawn from krillion.io's own CSS 
 - Night-sea navy ground with tonal panels and 1px hairlines, no shadows.
 - Tier colours are the only saturated data colours; benchmarks are neutral shapes and dashes.
 - Seven square tier tiles per dive as the recurring signature.
-- Array pixel numerals for headline numbers only (34px and up); Satoshi for everything else.
+- Array pixel numerals for every standalone number (400 weight for the giant hero numerals, 600 everywhere else, never below 13px); Satoshi for words.
 - Zero corner radius everywhere.
 - Missing field data is drawn as a dashed "no field data" stub, never filled in.
 
@@ -155,7 +155,7 @@ Every corner is square. The page is dark only, drawn from krillion.io's own CSS 
 A cold, nearly monochrome navy scale lit only by the game's seven tier colours.
 
 ### Primary
-- **Tier palette** (krillion `tier-krillion`, deep cut `tier-deepcut`, rare `tier-rare`, schooler `tier-schooler`, too clever `tier-tooclever`, plankton `tier-plankton`, miss `tier-miss`): the game's own tier tokens, copied from krillion.io. Used for tier squares, tier pills, legend swatches, the tier-split bars and the four-square brand mark. Text on a tier fill is always `abyss`.
+- **Tier palette** (krillion `tier-krillion`, deep cut `tier-deepcut`, rare `tier-rare`, schooler `tier-schooler`, too clever `tier-tooclever`, plankton `tier-plankton`, miss `tier-miss`): the game's own tier tokens, copied from krillion.io. Used for tier squares, tier pills, legend swatches, and the tier-split bars. Text on a tier fill is always `abyss`.
 
 ### Neutral
 - **Abyss** (`abyss`): page ground, sticky top bar, text on light fills.
@@ -191,12 +191,12 @@ A cold, nearly monochrome navy scale lit only by the game's seven tier colours.
 - **Headline** (Satoshi 900, 30px / 1.1, −0.02em; 26px mobile): section headings.
 - **Stat** (Satoshi 900, 28px / 1.15, −0.02em; 24px in summary rows and on mobile): field stats and summary numbers.
 - **Verdict** (Satoshi 700, 22px / 1.3; 20px mobile): the band verdict line.
-- **Title** (Satoshi 700, 17px / 1.3): panel headings and the brand (900 weight there).
+- **Title** (Satoshi 700, 17px / 1.3): panel headings. The brand wordmark is Satoshi 900, 18px, lowercase.
 - **Body** (Satoshi 500, 15px / 1.5, tabular numerals): table cells, buttons, nav; question text and answers at 700.
 - **Label** (Satoshi 500, 13px; 12px for axes): column heads, metas, keys and legends, in `drift`, sentence case.
 
 ### Named Rules
-**The Pixel Threshold Rule.** Array is used only at 34px and above, and only for headline numerals. Below that, including the points inside the tier squares, numbers are Satoshi 900.
+**The Pixel Weight Rule.** Every standalone number is Array (user-pinned, 2026-11-24). The light 400 weight smears into scanlines below about 28px, so it is kept for the giant hero numerals (score, /700, depth); every other number uses Array 600, which stays solid down to 13px, and no Array numeral is set smaller than 13px. Words, and phrases that contain a number, stay in Satoshi.
 
 **The Tabular Rule.** All numbers use tabular numerals (`font-variant-numeric: tabular-nums` on body) so columns align.
 
@@ -244,7 +244,7 @@ Square `shallow` field with a `line-2` border, 36px tall, Satoshi 700 14px; the 
 - **Internal Padding:** 24px (18px 16px on mobile).
 
 ### Navigation
-Sticky 60px top bar on `abyss` with a 1px `line` bottom edge: four-square mark and brand at left, tabs, dive date at right in `drift`. Tabs are Satoshi 700 in `drift`, foam on hover; the active tab is foam with a 2px foam underline sitting on the bar's bottom rule. The underline follows the section in view as you scroll (the last section whose top has passed a line 25% below the bar; the last section at page bottom), not only the clicked tab. Colour changes at 0.15s, the underline at 0.2s.
+Sticky 60px top bar on `abyss` with a 1px `line` bottom edge: the lowercase "real divers" wordmark at left (no logo), tabs, dive date at right in `drift`. Tabs are Satoshi 700 in `drift`, foam on hover; the active tab is foam with a 2px foam underline sitting on the bar's bottom rule. The underline follows the section in view as you scroll (the last section whose top has passed a line 25% below the bar; the last section at page bottom), not only the clicked tab. Colour changes at 0.15s, the underline at 0.2s.
 
 ### Tier Square (signature)
 A square tile filled with its tier colour. On the Today hero, seven squares in a 7-column grid (8px gap, max 440px wide) with the points in Satoshi 900 20px `abyss` text centred. On the dive wall, seven 24px squares (20px mobile) with a 5px gap per dive, date left and score right. Always followed or keyed by a legend of 12px swatches with tier name and points.
@@ -268,7 +268,7 @@ Bordered square (1px `line-2`), 24px in the answers table and 28px in the captur
 - **Do** use the seven tier colours only to report tiers, with `abyss` text on tier fills.
 - **Do** draw you in `foam`, the field average in `drift`, and top 10% / top 5% / running average in `drift-2`, distinguished by dash (`6 4`, `2 3`, `5 3`) and mark shape.
 - **Do** show a day without field stats as a 7px dashed `drift` stub keyed "no field data".
-- **Do** set headline numerals in Array at 34px or larger; everything else in Satoshi with tabular numerals.
+- **Do** set every standalone number in Array: 400 for the giant hero numerals, 600 for everything else, 13px minimum.
 - **Do** load Array and Satoshi from Fontshare with one `<link>` per family.
 - **Do** separate with 1px `line` hairlines and navy tonal steps.
 - **Do** keep the nav underline in sync with the section in view.
@@ -277,6 +277,6 @@ Bordered square (1px `line-2`), 24px in the answers table and 28px in the captur
 - **Don't** introduce any corner radius.
 - **Don't** give a benchmark, series or highlight its own hue; saturated colour belongs to tiers.
 - **Don't** fill, interpolate or estimate field data for days that have none.
-- **Don't** use Array below 34px or for words.
+- **Don't** use Array 400 below about 28px, any Array below 13px, or Array for words.
 - **Don't** add drop shadows, glows or blurs; the 2px halo ring behind chart markers is the only box-shadow.
 - **Don't** add a light theme; the palette is dark only, taken from krillion.io's own tokens.
