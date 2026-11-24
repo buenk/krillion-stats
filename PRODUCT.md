@@ -17,7 +17,7 @@ The game itself only shows today. This keeps every day, and on days captured wit
 
 ## Operating Context
 - After finishing the daily dive, the player clicks a bookmarklet on krillion.io (in Zen browser, via a keyword bookmark) and then "Save to stats site", which opens this page with the new data in the URL hash.
-- Data lives in the browser's localStorage, with optional JSON export/import and an optional committed `data.json`.
+- Data lives in the browser's localStorage and syncs between the owner's devices through a secret GitHub gist (each device connects once with a gist-scoped token). JSON export/import remains as a backup. The page is for the owner only.
 - Daily reset is 05:00 UTC; field stats can only be captured on the day itself.
 
 ## Capabilities and Constraints

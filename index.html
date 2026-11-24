@@ -74,8 +74,23 @@
           </div>
         </div>
         <div class="backup">
-          <h3 class="h3">Backup</h3>
-          <p class="sd">Your dives live in this browser's storage. Export a copy now and then; commit it as <code>data.json</code> to see it on other devices (the repo is public).</p>
+          <h3 class="h3">Sync between devices</h3>
+          <p class="sd" id="sync-status"></p>
+          <form id="sync-off" class="sync-form" hidden>
+            <p class="sd">Your dives are kept in a secret gist on your GitHub account. On each device, paste a token that can only touch gists: <a id="sync-token-link" href="#" target="_blank" rel="noopener">create one on GitHub</a> (tick nothing besides <code>gist</code>).</p>
+            <div class="sync-row">
+              <label class="vh" for="sync-token">GitHub token</label>
+              <input id="sync-token" type="password" autocomplete="off" spellcheck="false" placeholder="ghp_…">
+              <button class="btn btn-primary" type="submit">Connect</button>
+            </div>
+          </form>
+          <div id="sync-on" class="btns" hidden>
+            <button class="btn btn-primary" id="sync-now" type="button">Sync now</button>
+            <button class="btn btn-ghost" id="sync-disconnect" type="button">Disconnect this device</button>
+          </div>
+
+          <h3 class="h3 backup-h">Backup</h3>
+          <p class="sd">Dives are also stored in this browser. Export a copy now and then if you like.</p>
           <div class="btns">
             <button class="btn btn-primary" id="export" type="button">Export JSON</button>
             <label class="btn btn-ghost">Import JSON<input id="import" type="file" accept="application/json" hidden></label>

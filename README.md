@@ -20,7 +20,9 @@ Krillion only serves field stats (distribution, popularity, reveal) for the curr
 |---|---|
 | `capture.js` | The capture script the bookmarklet runs |
 | `index.html`, `app.js`, `style.css` | Dashboard: hand-drawn HTML/SVG charts, no chart library, no build step |
-| `data.js` | Storage, merging and the `#import=` payload format |
+| `data.js` | Storage, validation, merging and the `#import=` payload format |
+| `sync.js` | Sync through a secret GitHub gist |
+| `palette.js` | Palette tester, loaded only on localhost or with `?palette` |
 | `stats.js` | Distribution maths (mean, median, top 10% / 5%), tier colours, score bands, per-question field stats |
 | `categories.js` | Keyword rules that sort questions into categories. Edit them freely; every saved day is re-classified on load |
 | `data.json` | Optional: commit an export here to see your data on any device |
@@ -43,6 +45,10 @@ The loader bookmarklet can't fetch an `http://localhost` script from the https k
 
 - **Field average** comes from the distribution buckets, using each bucket's midpoint. The **top 10% / 5%** cut-offs are interpolated within a bucket, so treat them as accurate to a few points.
 - **Per-question field average** counts only players who gave an accepted answer. Misses aren't in the popularity data, so the field figure runs a little high.
+
+## Sync between devices
+
+The page is static, so by default dives live in the browser's localStorage. To sync, open **Data → Sync between devices** on each device and paste a GitHub token with only the `gist` scope ([create one](https://github.com/settings/tokens/new?scopes=gist&description=real%20divers%20sync)). The first device creates a secret gist (`real-divers.json`) on your account; others find it. Every load pulls and merges it, and the page writes back whenever it has dives the gist lacks. Merging only adds or upgrades days, so devices can't undo each other. The token and gist id stay in each device's localStorage (`sync.js`).
 
 ## Data safety
 

@@ -1,6 +1,7 @@
 import { classify } from './categories.js';
 import { distStats, rebin, TIERS, tierOf, bandOf, questionField, formatPercentile, MAX_DAY_SCORE } from './stats.js';
 import { loadLocal, saveLocal, mergeLogs, decodePayload, cleanLog } from './data.js';
+import { getConfig, connect, disconnect, pull, push, canonical, markSynced, TOKEN_URL } from './sync.js';
 
 const SITE = location.origin + location.pathname.replace(/[^/]*$/, '');
 const $ = (id) => document.getElementById(id);
@@ -55,18 +56,90 @@ async function init() {
     }
   }
 
-  currentLog = log = cleanLog(log);
-  allDays = Object.values(log.days)
-    .sort((a, b) => a.date.localeCompare(b.date))
-    .map((d) => ({ ...d, field: distStats(d.dist, d.maxScore || MAX_DAY_SCORE) }));
-
+  setLog(log);
   setupBookmarklets();
   setupDataButtons();
+  setupSync();
   $('range').addEventListener('change', renderRange);
   render();
   setupScrollSpy();
+  runSync();
   // An import link opened on an already-loaded page only changes the hash.
   addEventListener('hashchange', () => { if (/import=/.test(location.hash)) location.reload(); });
+}
+
+function setLog(log) {
+  currentLog = cleanLog(log);
+  allDays = Object.values(currentLog.days)
+    .sort((a, b) => a.date.localeCompare(b.date))
+    .map((d) => ({ ...d, field: distStats(d.dist, d.maxScore || MAX_DAY_SCORE) }));
+}
+
+// ---------------- sync between devices ----------------
+let syncing = false;
+async function runSync() {
+  const cfg = getConfig();
+  if (!cfg || syncing) return syncUI();
+  syncing = true;
+  syncUI('Syncing…');
+  try {
+    const remote = cleanLog(await pull(cfg));
+    const merged = mergeLogs(currentLog, remote).log;
+    if (canonical(merged) !== canonical(currentLog)) {
+      const before = allDays.length;
+      setLog(merged);
+      saveLocal(currentLog);
+      render();
+      const n = allDays.length - before;
+      if (n > 0) toast(`Synced ${n} dive${n === 1 ? '' : 's'} from your other devices.`);
+    }
+    if (canonical(currentLog) !== canonical(remote)) await push(cfg, currentLog);
+    else markSynced(cfg);
+    syncUI();
+  } catch (e) {
+    syncUI(`Sync failed: ${e.message}`, true);
+  } finally {
+    syncing = false;
+  }
+}
+
+function syncUI(status, isError = false) {
+  const cfg = getConfig();
+  $('sync-off').hidden = !!cfg;
+  $('sync-on').hidden = !cfg;
+  const el = $('sync-status');
+  el.classList.toggle('err', isError);
+  if (status) el.textContent = status;
+  else if (cfg) {
+    const when = cfg.lastSync ? new Date(cfg.lastSync).toLocaleString('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : 'not yet';
+    el.textContent = `Synced through a secret gist on @${cfg.login} · last sync ${when}.`;
+  } else el.textContent = 'Not set up: dives stay in this browser only.';
+}
+
+function setupSync() {
+  $('sync-token-link').href = TOKEN_URL;
+  $('sync-off').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const token = $('sync-token').value;
+    if (!token.trim()) return;
+    syncUI('Connecting…');
+    try {
+      await connect(token);
+      $('sync-token').value = '';
+      await runSync();
+    } catch (err) {
+      syncUI(`Couldn't connect: ${err.message}`, true);
+    }
+  });
+  $('sync-now').addEventListener('click', runSync);
+  $('sync-disconnect').addEventListener('click', () => {
+    if (!confirm('Stop syncing on this device? Your dives stay here and in the gist; this only forgets the token.')) return;
+    disconnect();
+    syncUI();
+  });
+  // Coming back to the tab (e.g. after capturing on another device) picks up new dives.
+  addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') runSync(); });
+  syncUI();
 }
 
 function render() {
@@ -489,7 +562,9 @@ function setupDataButtons() {
     } catch (err) { toast('That file isn\'t a Krillion Stats export: ' + err.message); }
   });
   $('clear').addEventListener('click', () => {
-    if (!confirm('Delete all Krillion Stats data stored in this browser? Export first if you want a backup.')) return;
+    if (!confirm(getConfig()
+      ? 'Clear the dives stored in this browser? Sync is on, so they come back from the gist on the next load. To start over, disconnect sync first.'
+      : 'Delete all Krillion Stats data stored in this browser? Export first if you want a backup.')) return;
     localStorage.removeItem('krillion-stats:v1');
     location.reload();
   });
