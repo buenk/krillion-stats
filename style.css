@@ -7,6 +7,7 @@
   --foam: #e8f1ff;
   --drift: #7d93b8;
   --drift-2: #a3b6d6;
+  --slate: #647a9f;
   --cyan: #4de3ff;
   --you: #e8f1ff;
   --field: #7d93b8;
@@ -20,7 +21,7 @@ html { scrollbar-color: var(--line-2) var(--abyss); scroll-behavior: smooth; -we
 ::-webkit-scrollbar { width: 12px; height: 12px; }
 ::-webkit-scrollbar-track { background: var(--abyss); }
 ::-webkit-scrollbar-thumb { background: var(--line-2); border: 3px solid var(--abyss); }
-::selection { background: #bfa7ff; color: var(--abyss); }
+::selection { background: var(--drift-2); color: var(--abyss); }
 body {
   margin: 0; background: var(--abyss); color: var(--foam);
   font: 500 15px/1.5 var(--sans); font-variant-numeric: tabular-nums;
@@ -218,13 +219,13 @@ select:hover { border-color: #3a5075; }
 .q-side { display: flex; flex-direction: column; gap: 24px; }
 .ckeys { display: flex; flex-wrap: wrap; gap: 6px 16px; margin-bottom: 18px; font-size: 13px; color: var(--drift); }
 .ckeys li { display: flex; align-items: center; gap: 6px; }
-.ckeys .k-you { background: #647a9f; }
+.ckeys .k-you { background: var(--slate); }
 .clist { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 18px 56px; }
 .crow { display: grid; grid-template-columns: 136px minmax(0, 1fr) 44px; gap: 12px; align-items: center; }
 .cn { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cn small { display: block; font-size: 12px; color: var(--drift); font-weight: 500; }
 .ctrack { position: relative; height: 16px; background: var(--sunk); margin-top: 10px; }
-.cbar { position: absolute; left: 0; top: 4px; bottom: 4px; background: #647a9f; }
+.cbar { position: absolute; left: 0; top: 4px; bottom: 4px; background: var(--slate); }
 .cm { position: absolute; top: -4px; bottom: -4px; width: 0; transform: translateX(-50%); }
 .cm.avg { width: 9px; height: 9px; top: 50%; bottom: auto; background: var(--field); box-shadow: 0 0 0 2px var(--shallow); transform: translate(-50%, -50%); }
 .cm.t10 { width: 11px; height: 11px; top: 50%; bottom: auto; transform: translate(-50%, -50%); border: 2px solid var(--drift-2); }

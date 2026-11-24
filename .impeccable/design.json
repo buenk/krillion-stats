@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T15:16:45+00:00",
+  "title": "Design System: Krillion Stats",
+  "extensions": {
+    "colorMeta": {
+      "abyss": {
+        "role": "neutral",
+        "displayName": "Abyss",
+        "canonical": "oklch(14.4% 0.024 260)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "sunk": {
+        "role": "neutral",
+        "displayName": "Sunk Navy",
+        "canonical": "oklch(19.3% 0.040 261)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "shallow": {
+        "role": "neutral",
+        "displayName": "Shallow",
+        "canonical": "oklch(23.1% 0.047 260)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "oklch(29.3% 0.055 259)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "line-2": {
+        "role": "neutral",
+        "displayName": "Strong Hairline",
+        "canonical": "oklch(36.8% 0.068 261)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "line-hover": {
+        "role": "neutral",
+        "displayName": "Hover Hairline",
+        "canonical": "oklch(43.0% 0.068 260)",
+        "tonalRamp": [
+          "#050a14",
+          "#0a1426",
+          "#101d33",
+          "#1b2c47",
+          "#2a3f63",
+          "#3a5075",
+          "#7d93b8",
+          "#a3b6d6"
+        ]
+      },
+      "foam": {
+        "role": "neutral",
+        "displayName": "Foam",
+        "canonical": "oklch(95.6% 0.021 259)",
+        "tonalRamp": [
+          "#090b10",
+          "#21252c",
+          "#3d424b",
+          "#5b626d",
+          "#7b838e",
+          "#9fa5b0",
+          "#c4c9d2",
+          "#eaeff6"
+        ]
+      },
+      "drift": {
+        "role": "neutral",
+        "displayName": "Drift",
+        "canonical": "oklch(66.0% 0.061 261)",
+        "tonalRamp": [
+          "#050b18",
+          "#1a2538",
+          "#33425c",
+          "#4f6282",
+          "#6f83a5",
+          "#94a6c4",
+          "#bbcae3",
+          "#e3efff"
+        ]
+      },
+      "drift-2": {
+        "role": "neutral",
+        "displayName": "Pale Drift",
+        "canonical": "oklch(77.2% 0.051 261)",
+        "tonalRamp": [
+          "#060b16",
+          "#1c2535",
+          "#364257",
+          "#52627c",
+          "#73839f",
+          "#97a6be",
+          "#bdcadf",
+          "#e5efff"
+        ]
+      },
+      "focus-cyan": {
+        "role": "neutral",
+        "displayName": "Focus Cyan",
+        "canonical": "oklch(84.9% 0.129 213)",
+        "tonalRamp": [
+          "#00101b",
+          "#002e3c",
+          "#004e61",
+          "#007189",
+          "#0094ac",
+          "#4bb6ca",
+          "#87d8e9",
+          "#befaff"
+        ]
+      },
+      "tier-krillion": {
+        "role": "primary",
+        "displayName": "One in a Krillion Gold",
+        "canonical": "oklch(88.0% 0.135 86)",
+        "tonalRamp": [
+          "#170700",
+          "#372000",
+          "#5a3c00",
+          "#805a00",
+          "#a37c00",
+          "#c2a052",
+          "#e2c688",
+          "#ffecbc"
+        ]
+      },
+      "tier-deepcut": {
+        "role": "primary",
+        "displayName": "Deep Cut Lilac",
+        "canonical": "oklch(78.2% 0.125 296)",
+        "tonalRamp": [
+          "#0e0421",
+          "#291a47",
+          "#47356f",
+          "#68519b",
+          "#8973c0",
+          "#aa98dc",
+          "#cdbff8",
+          "#f1e7ff"
+        ]
+      },
+      "tier-rare": {
+        "role": "primary",
+        "displayName": "Rare Pink",
+        "canonical": "oklch(74.9% 0.168 359)",
+        "tonalRamp": [
+          "#22000b",
+          "#490124",
+          "#741741",
+          "#a22f60",
+          "#c95481",
+          "#e680a4",
+          "#ffacc8",
+          "#ffd8ee"
+        ]
+      },
+      "tier-schooler": {
+        "role": "primary",
+        "displayName": "Schooler Cyan",
+        "canonical": "oklch(88.0% 0.104 212)",
+        "tonalRamp": [
+          "#001017",
+          "#002d37",
+          "#004d5b",
+          "#006f81",
+          "#2491a4",
+          "#63b3c3",
+          "#96d5e2",
+          "#c8f8ff"
+        ]
+      },
+      "tier-tooclever": {
+        "role": "primary",
+        "displayName": "Too Clever Orange",
+        "canonical": "oklch(78.5% 0.154 61)",
+        "tonalRamp": [
+          "#1f0000",
+          "#451300",
+          "#6d2d00",
+          "#994800",
+          "#be6a00",
+          "#db9251",
+          "#f8bb87",
+          "#ffe4bc"
+        ]
+      },
+      "tier-plankton": {
+        "role": "primary",
+        "displayName": "Plankton Pale",
+        "canonical": "oklch(90.7% 0.026 261)",
+        "tonalRamp": [
+          "#080b11",
+          "#21252d",
+          "#3c424d",
+          "#5a626f",
+          "#7a8391",
+          "#9ea5b2",
+          "#c3c9d4",
+          "#eaeff7"
+        ]
+      },
+      "tier-miss": {
+        "role": "primary",
+        "displayName": "Miss Slate",
+        "canonical": "oklch(42.6% 0.057 261)",
+        "tonalRamp": [
+          "#050b17",
+          "#1b2537",
+          "#35425a",
+          "#50627f",
+          "#7183a2",
+          "#96a6c1",
+          "#bccae1",
+          "#e4efff"
+        ]
+      },
+      "slate": {
+        "role": "Neutral \"you, all questions\" bar on category tracks (4.2:1 on sunk).",
+        "displayName": "Slate",
+        "canonical": "oklch(57.7% 0.063 261)",
+        "hex": "#647a9f"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Pixel Score",
+        "purpose": "Today's score only; Array, 168px (128px mobile)."
+      },
+      "display-of": {
+        "displayName": "Pixel Out-Of",
+        "purpose": "The /700 beside the score, in drift."
+      },
+      "depth": {
+        "displayName": "Pixel Depth",
+        "purpose": "Depth in metres; 34px is the Array floor."
+      },
+      "headline": {
+        "displayName": "Section Heading",
+        "purpose": "Section titles."
+      },
+      "stat": {
+        "displayName": "Stat Number",
+        "purpose": "Field stats and summary figures."
+      },
+      "verdict": {
+        "displayName": "Verdict",
+        "purpose": "The game's band verdict on Today."
+      },
+      "title": {
+        "displayName": "Panel Title",
+        "purpose": "Panel headings and brand."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Tables, buttons, nav; tabular numerals."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Metas, column heads, keys, legends in drift."
+      }
+    },
+    "shadows": [
+      {
+        "name": "marker-halo",
+        "value": "0 0 0 2px var(--shallow)",
+        "purpose": "Solid ring that separates chart markers from lines; the only box-shadow in the system (abyss variant on the rotated 'you' marker)."
+      }
+    ],
+    "motion": [
+      {
+        "name": "color-fast",
+        "value": "150ms",
+        "purpose": "Colour and background changes on tabs and buttons."
+      },
+      {
+        "name": "underline",
+        "value": "200ms",
+        "purpose": "Nav underline moving with the section in view."
+      },
+      {
+        "name": "scroll",
+        "value": "scroll-behavior: smooth",
+        "purpose": "Tab jumps; disabled under prefers-reduced-motion along with all transitions."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "single-column",
+        "value": "980px"
+      },
+      {
+        "name": "answers-stacked",
+        "value": "760px"
+      },
+      {
+        "name": "mobile",
+        "value": "640px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Solid foam block for the main action in a group (Export JSON, Capture dive).",
+      "html": "<button class=\"ds-btn ds-btn-primary\" type=\"button\">Export JSON</button>",
+      "css": ".ds-btn { display:inline-flex; align-items:center; gap:8px; height:42px; padding:0 18px; font:700 15px \"Satoshi\", ui-sans-serif, system-ui, sans-serif; border:1px solid transparent; border-radius:0; cursor:pointer; transition:background-color .15s, border-color .15s; } .ds-btn-primary { background:var(--foam, #e8f1ff); color:var(--abyss, #050a14); } .ds-btn-primary:hover { background:#fff; } .ds-btn:focus-visible { outline:2px solid var(--cyan, #4de3ff); outline-offset:3px; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Outlined secondary action; the danger variant only changes the text colour.",
+      "html": "<span style=\"display:flex;gap:12px\"><button class=\"ds-btn-g\" type=\"button\">Import JSON</button><button class=\"ds-btn-g ds-btn-danger\" type=\"button\">Clear local data</button></span>",
+      "css": ".ds-btn-g { display:inline-flex; align-items:center; height:42px; padding:0 18px; font:700 15px \"Satoshi\", ui-sans-serif, system-ui, sans-serif; background:transparent; color:var(--foam, #e8f1ff); border:1px solid var(--line-2, #2a3f63); border-radius:0; cursor:pointer; transition:background-color .15s, border-color .15s; } .ds-btn-g:hover { background:#16263f; border-color:#3a5075; } .ds-btn-g:focus-visible { outline:2px solid var(--cyan, #4de3ff); outline-offset:3px; } .ds-btn-danger { color:#ff9bb8; }"
+    },
+    {
+      "name": "Range Select",
+      "kind": "input",
+      "refersTo": "select",
+      "description": "Square shallow select with a gradient-drawn chevron, used for the Progress range.",
+      "html": "<select class=\"ds-select\"><option>Last 30 dives</option><option>All dives</option></select>",
+      "css": ".ds-select { font:700 14px \"Satoshi\", ui-sans-serif, system-ui, sans-serif; color:var(--foam, #e8f1ff); background-color:var(--shallow, #101d33); border:1px solid var(--line-2, #2a3f63); border-radius:0; height:36px; padding:0 32px 0 12px; appearance:none; cursor:pointer; background-image:linear-gradient(45deg, transparent 50%, var(--drift, #7d93b8) 50%), linear-gradient(135deg, var(--drift, #7d93b8) 50%, transparent 50%); background-position:calc(100% - 17px) 15px, calc(100% - 12px) 15px; background-size:5px 5px; background-repeat:no-repeat; } .ds-select:hover { border-color:#3a5075; } .ds-select:focus-visible { outline:2px solid var(--cyan, #4de3ff); outline-offset:3px; }"
+    },
+    {
+      "name": "Section Tabs",
+      "kind": "nav",
+      "refersTo": "nav-tab",
+      "description": "Top-bar tabs; the foam underline follows the section in view.",
+      "html": "<nav class=\"ds-tabs\"><a href=\"#\" aria-current=\"true\">Today</a><a href=\"#\">Progress</a><a href=\"#\">Questions</a><a href=\"#\">Data</a></nav>",
+      "css": ".ds-tabs { display:flex; gap:4px; height:60px; background:var(--abyss, #050a14); border-bottom:1px solid var(--line, #1b2c47); font-family:\"Satoshi\", ui-sans-serif, system-ui, sans-serif; } .ds-tabs a { display:flex; align-items:center; padding:0 14px; text-decoration:none; color:var(--drift, #7d93b8); font-weight:700; font-size:15px; border-bottom:2px solid transparent; margin-bottom:-1px; transition:color .15s, border-color .2s; } .ds-tabs a:hover { color:var(--foam, #e8f1ff); } .ds-tabs a[aria-current] { color:var(--foam, #e8f1ff); border-bottom-color:var(--foam, #e8f1ff); } .ds-tabs a:focus-visible { outline:2px solid var(--cyan, #4de3ff); outline-offset:-4px; }"
+    },
+    {
+      "name": "Tier Pill",
+      "kind": "chip",
+      "refersTo": "tier-pill",
+      "description": "Inline tier label in the tier's own colour.",
+      "html": "<span style=\"display:flex;gap:8px\"><span class=\"ds-pill\" style=\"--c:#bfa7ff\">Deep Cut</span><span class=\"ds-pill\" style=\"--c:#7deaff\">Schooler</span><span class=\"ds-pill\" style=\"--c:#3d4f6e\">Miss</span></span>",
+      "css": ".ds-pill { display:inline-block; background:var(--c); color:#050a14; font:700 13px \"Satoshi\", ui-sans-serif, system-ui, sans-serif; padding:2px 8px; border-radius:0; white-space:nowrap; }"
+    },
+    {
+      "name": "Panel",
+      "kind": "card",
+      "refersTo": "panel",
+      "description": "Shallow square container with a hairline border and a title/meta row.",
+      "html": "<div class=\"ds-panel\"><div class=\"ds-ph\"><h3>You vs the field</h3><span>1 of 8 dives with field stats</span></div><p>Content</p></div>",
+      "css": ".ds-panel { background:var(--shallow, #101d33); border:1px solid var(--line, #1b2c47); border-radius:0; padding:24px; color:var(--foam, #e8f1ff); font:500 15px/1.5 \"Satoshi\", ui-sans-serif, system-ui, sans-serif; } .ds-ph { display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:20px; } .ds-ph h3 { margin:0; font-size:17px; font-weight:700; } .ds-ph span { color:var(--drift, #7d93b8); font-size:13px; } .ds-panel p { margin:0; }"
+    },
+    {
+      "name": "Dive Tier Grid",
+      "kind": "custom",
+      "refersTo": "tier-square",
+      "description": "Signature: one dive as seven tier-coloured squares with points, plus the Array score.",
+      "html": "<div class=\"ds-dive\"><p class=\"ds-score\"><span>490</span><span class=\"ds-of\">/700</span></p><div class=\"ds-grid\"><span style=\"--c:#ffd166\"><b>100</b></span><span style=\"--c:#bfa7ff\"><b>85</b></span><span style=\"--c:#bfa7ff\"><b>85</b></span><span style=\"--c:#ff7bac\"><b>60</b></span><span style=\"--c:#7deaff\"><b>30</b></span><span style=\"--c:#d7e1f2\"><b>10</b></span><span style=\"--c:#3d4f6e\"><b>0</b></span></div></div>",
+      "css": ".ds-dive { background:var(--abyss, #050a14); padding:16px; color:var(--foam, #e8f1ff); } .ds-score { display:flex; align-items:baseline; gap:10px; margin:0; line-height:.8; font-family:\"Array\", ui-monospace, monospace; } .ds-score span:first-child { font-size:96px; } .ds-of { font-size:40px; color:var(--drift, #7d93b8); } .ds-grid { display:grid; grid-template-columns:repeat(7, 1fr); gap:8px; max-width:440px; margin-top:24px; } .ds-grid span { aspect-ratio:1; display:grid; place-items:center; background:var(--c); border-radius:0; } .ds-grid b { color:#050a14; font:900 18px \"Satoshi\", ui-sans-serif, system-ui, sans-serif; }"
+    },
+    {
+      "name": "No Field Data Stub",
+      "kind": "custom",
+      "refersTo": "",
+      "description": "Paired score bars; a day without field stats gets a dashed stub instead of a field bar.",
+      "html": "<div class=\"ds-bars\"><span class=\"ds-pair\"><i class=\"you\" style=\"height:70%\"></i><i class=\"fld\" style=\"height:45%\"></i></span><span class=\"ds-pair\"><i class=\"you\" style=\"height:60%\"></i><i class=\"none\"></i></span></div>",
+      "css": ".ds-bars { display:flex; gap:24px; height:120px; align-items:flex-end; padding:12px; background:var(--shallow, #101d33); border-bottom:1px solid var(--line-2, #2a3f63); } .ds-pair { display:flex; align-items:flex-end; gap:2px; height:100%; width:40px; } .ds-pair i { display:block; flex:1; } .ds-pair .you { background:var(--foam, #e8f1ff); } .ds-pair .fld { background:var(--drift, #7d93b8); } .ds-pair .none { height:7px; border:1.5px dashed var(--drift, #7d93b8); border-bottom:0; opacity:.85; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Night-Sea Logbook",
+    "overview": "Krillion Stats reads as a page torn from the game's own logbook, not a generic analytics dashboard. The ground is the game's abyss navy, panels sit one step shallower, and hairline rules divide everything. Colour is held back almost entirely: the only saturated hues on the page are the game's seven tier colours, and they appear only where a tier is being reported. Everything else (you, the field, top 10%, top 5%, running average) is told in foam, drift and drift-2, separated by shape and dash pattern rather than hue.\n\nThe signature unit is the dive as a row of seven square tiles, the same grid players already share from the game. It appears giant on the Today hero and small on the dive wall, and the brand mark is four of those squares. Headline numbers are set in Array, a pixel face that echoes the game's screen; every other word and number is Satoshi with tabular numerals. Density is moderate: a 1100px column, panels with 24px padding, tables ruled with 1px lines.\n\nEvery corner is square. The page is dark only, drawn from krillion.io's own CSS tokens, and honest about gaps: a day without captured field stats shows a dashed stub, never an estimate.",
+    "keyCharacteristics": [
+      "Night-sea navy ground with tonal panels and 1px hairlines, no shadows.",
+      "Tier colours are the only saturated data colours; benchmarks are neutral shapes and dashes.",
+      "Seven square tier tiles per dive as the recurring signature.",
+      "Array pixel numerals for headline numbers only (34px and up); Satoshi for everything else.",
+      "Zero corner radius everywhere.",
+      "Missing field data is drawn as a dashed \"no field data\" stub, never filled in."
+    ],
+    "rules": [
+      {
+        "name": "The Tier Monopoly Rule",
+        "body": "Saturated colour on this site means a tier. The seven tier colours are the only saturated data colours; no chart series, benchmark, highlight or decoration borrows a hue.",
+        "section": "colors"
+      },
+      {
+        "name": "The Neutral Benchmarks Rule",
+        "body": "You are foam, the field average is drift, and top 10%, top 5% and the running average are drift-2. They are told apart by mark and dash: field average is a solid line and filled square, top 10% is a `6 4` dash and hollow square, top 5% is a `2 3` dash and short bar, running average is a `5 3` dash.",
+        "section": "colors"
+      },
+      {
+        "name": "The Honest Gap Rule",
+        "body": "A day without field stats is drawn as a 7px dashed outline stub (1.5px dashed `drift`, open at the bottom) with the key \"no field data\". It is never interpolated, averaged in or filled.",
+        "section": "colors"
+      },
+      {
+        "name": "The Pixel Threshold Rule",
+        "body": "Array is used only at 34px and above, and only for headline numerals. Below that, including the points inside the tier squares, numbers are Satoshi 900.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "All numbers use tabular numerals (`font-variant-numeric: tabular-nums` on body) so columns align.",
+        "section": "typography"
+      },
+      {
+        "name": "The One Family Per Link Rule",
+        "body": "Load each Fontshare family with its own `<link>`; Fontshare serves only the first family in a combined request.",
+        "section": "typography"
+      },
+      {
+        "name": "The Hairline Rule",
+        "body": "Separation is a 1px `line` rule or a step in navy tone. No drop shadows, blurs or glows.",
+        "section": "elevation"
+      },
+      {
+        "name": "The No Radius Rule",
+        "body": "No corner radius anywhere, on any component, at any size.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do keep every corner at 0px radius.",
+      "Do use the seven tier colours only to report tiers, with `abyss` text on tier fills.",
+      "Do draw you in `foam`, the field average in `drift`, and top 10% / top 5% / running average in `drift-2`, distinguished by dash (`6 4`, `2 3`, `5 3`) and mark shape.",
+      "Do show a day without field stats as a 7px dashed `drift` stub keyed \"no field data\".",
+      "Do set headline numerals in Array at 34px or larger; everything else in Satoshi with tabular numerals.",
+      "Do load Array and Satoshi from Fontshare with one `<link>` per family.",
+      "Do separate with 1px `line` hairlines and navy tonal steps.",
+      "Do keep the nav underline in sync with the section in view."
+    ],
+    "donts": [
+      "Don't introduce any corner radius.",
+      "Don't give a benchmark, series or highlight its own hue; saturated colour belongs to tiers.",
+      "Don't fill, interpolate or estimate field data for days that have none.",
+      "Don't use Array below 34px or for words.",
+      "Don't add drop shadows, glows or blurs; the 2px halo ring behind chart markers is the only box-shadow.",
+      "Don't add a light theme; the palette is dark only, taken from krillion.io's own tokens."
+    ]
+  }
+}
